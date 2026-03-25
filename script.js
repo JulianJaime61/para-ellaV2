@@ -112,7 +112,8 @@ function next() {
         }
 
         else if (step === 5) {
-            window.location.href = `https://ig.me/m/${IG_USER}/`;
+            window.location.href = `https://www.instagram.com/direct/inbox/?chat=${IG_USER}`;
+            }
         }
 
     });
