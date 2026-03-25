@@ -112,7 +112,8 @@ function next() {
         }
 
         else if (step === 5) {
-            window.location.href = `https://www.instagram.com/direct/inbox/?chat=${IG_USER}`;
+                // Intento de abrir la conversación directa en la app
+                window.location.href = `instagram://direct?user_id=${IG_USER_ID}`;
             }
         }
 
