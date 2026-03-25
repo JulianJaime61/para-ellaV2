@@ -113,7 +113,7 @@ function next() {
 
         else if (step === 5) {
                 // Intento de abrir la conversación directa en la app
-                window.location.href = `https://ig.me/m/${username}`;
+                window.location.href = `instagram://direct?user_id=${IG_USER_ID}`;
             }
         }
 
