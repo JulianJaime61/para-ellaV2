@@ -6,7 +6,7 @@ let step = 0;
 let choice = "";
 
 // USERNAME IG
-const IG_USER = "tu_usuario";
+const IG_USER = "julianj.80";
 
 // progreso
 function updateProgress() {
@@ -108,7 +108,7 @@ function next() {
         }
 
         else if (step === 5) {
-            window.location.href = `https://www.instagram.com/${IG_USER}/`;
+            window.location.href = `https://ig.me/m/${IG_USER}/`;
         }
 
     });
