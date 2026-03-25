@@ -16,7 +16,7 @@ function updateProgress() {
 }
 
 // mensaje
-function send(text, type="them") {
+function send(text, type = "them") {
     const msg = document.createElement("div");
     msg.className = "msg " + type;
     msg.innerText = text;
@@ -62,8 +62,8 @@ function next() {
             send("y no sé si me vas a querer seguir el juego…");
 
             options([
-                {text:"A ver… dime", value:"open"},
-                {text:"Depende 😏", value:"play"},
+                { text: "A ver… dime", value: "open" },
+                { text: "Depende 😏", value: "play" },
             ]);
         }
 
@@ -72,8 +72,8 @@ function next() {
             send("porque no cualquiera acepta sin saber…");
 
             options([
-                {text:"¿Diferente cómo?", value:"curious"},
-                {text:"No sé si confiar 😅", value:"doubt"}
+                { text: "¿Diferente cómo?", value: "curious" },
+                { text: "No sé si confiar 😅", value: "doubt" }
             ]);
         }
 
@@ -83,7 +83,7 @@ function next() {
             send("y todavía no decido si es bueno o peligroso 👀");
 
             options([
-                {text:"Eso suena interesante", value:"hook"},
+                { text: "Eso suena interesante", value: "hook" },
             ]);
         }
 
@@ -99,11 +99,15 @@ function next() {
                 response = "vas entendiendo rápido…";
             }
 
-            send("¿soy bueno o peligroso? 😏");
-            send(response);
+            send("ok… voy a ser directo");
+            send("no eres tan fácil de leer como pensaba 😏");
+
+            send("y eso me gustó más de lo que debería…");
+
+            send("pero esto ya no da para seguir aquí");
 
             options([
-                {text:"Te respondo en Instagram 😏", value:"ig"}
+                { text: "Entonces… ¿dónde? 👀", value: "ig" }
             ]);
         }
 
@@ -113,6 +117,28 @@ function next() {
 
     });
 }
+
+let isMobile = window.innerWidth <= 768;
+
+function updateDevice() {
+    isMobile = window.innerWidth <= 768;
+}
+
+// Escucha cambios de tamaño
+window.addEventListener("resize", updateDevice);
+
+// velocidad dinámica
+function getTypingSpeed() {
+    return isMobile ? 1000 : 700;
+}
+
+if (isMobile) {
+    console.log("Modo móvil 📱");
+} else {
+    console.log("Modo desktop 💻");
+}
+
+
 
 // 🚀 INICIO CONTROLADO
 window.onload = () => {
