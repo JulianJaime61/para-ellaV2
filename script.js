@@ -7,6 +7,7 @@ let choice = "";
 
 // USERNAME IG
 const IG_USER = "julianj.80";
+const IG_USER_ID = "julianj.80";
 
 // progreso
 function updateProgress() {
@@ -26,11 +27,22 @@ function send(text, type = "them") {
 
 // typing real
 function showTyping(callback) {
+    const typing = document.querySelector(".typing");
+
+    if (!typing) {
+        console.error("No existe .typing");
+        callback();
+        return;
+    }
+
     typing.style.display = "block";
 
     setTimeout(() => {
         typing.style.display = "none";
-        callback();
+
+        if (typeof callback === "function") {
+            callback();
+        }
     }, 1200);
 }
 
@@ -41,86 +53,95 @@ function options(arr) {
         btn.innerText = opt.text;
 
         btn.onclick = () => {
-            choice = opt.value;
             document.querySelectorAll("button").forEach(b => b.remove());
-            next();
+
+            if (opt.action) {
+                opt.action(); // 🔥 ejecuta acción (Instagram)
+            } else {
+                choice = opt.value;
+                next();
+            }
         };
 
         chat.appendChild(btn);
     });
 }
 
+
+// Detectar móvil
+const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+function goToInstagram() {
+
+    if (isMobile) {
+        // Intento abrir conversación directa
+        window.location.href = `instagram://direct?user_id=${IG_USER_ID}`;
+
+        // fallback si falla
+        setTimeout(() => {
+            window.location.href = `https://instagram.com/${IG_USER}`;
+        }, 1500);
+
+    } else {
+        // Desktop → perfil
+        window.location.href = `https://instagram.com/${IG_USER}`;
+    }
+}
+
 // flujo principal
+
 function next() {
     step++;
     updateProgress();
 
     showTyping(() => {
 
+        console.log("STEP:", step);
+
         if (step === 1) {
-            send("Aneth… tengo una duda contigo 👀");
-            send("y no sé si me vas a querer seguir el juego…");
+            send("Jajajaja… me gusta tu risa 😏");
+            send("Pero tengo que advertirte… lo que viene no es para cualquiera 👀");
 
             options([
-                { text: "A ver… dime", value: "open" },
-                { text: "Depende 😏", value: "play" },
+                { text: "Ahora me dejaste intrigada 😏", value: "intrigued" },
+                { text: "Uy… ¿qué será? 👀", value: "curious" }
             ]);
         }
 
         else if (step === 2) {
-            send("ok… eso me gusta");
-            send("porque no cualquiera acepta sin saber…");
+            let response = "";
+
+            if (choice === "intrigued") {
+                response = "Me gusta que tengas curiosidad… eso hace que todo sea más divertido 😏";
+            } else if (choice === "curious") {
+                response = "Perfecto, porque lo que sigue depende de tu curiosidad 👀";
+            }
+
+            send(response);
+            send("Pero hay un detalle… esto se siente limitado aquí 😅");
 
             options([
-                { text: "¿Diferente cómo?", value: "curious" },
-                { text: "No sé si confiar 😅", value: "doubt" }
+                { text: "¿Limitado cómo? 😳", value: "limit" },
+                { text: "Ya quiero saber 😏", value: "want" }
             ]);
         }
 
         else if (step === 3) {
-            send("no lo tengo tan claro todavía…");
-            send("pero hay algo curioso contigo…");
-            send("y todavía no decido si es bueno o peligroso 👀");
+            send("No puedo leerte bien ni ver esas pequeñas cosas que dicen más que las palabras 😏");
+            send("Lo divertido empieza cuando lo hacemos en tiempo real…");
 
             options([
-                { text: "Eso suena interesante", value: "hook" },
+                { text: "Ok… te escribo 😏", action: goToInstagram }
             ]);
-        }
-
-        else if (step === 4) {
-
-            let response = "";
-
-            if (choice === "curious") {
-                response = "me gusta que quieras saber más…";
-            } else if (choice === "doubt") {
-                response = "eso lo hace más divertido 😏";
-            } else {
-                response = "vas entendiendo rápido…";
-            }
-
-            send("ok… voy a ser directo");
-            send("no eres tan fácil de leer como pensaba 😏");
-
-            send("y eso me gustó más de lo que debería…");
-
-            send("pero esto ya no da para seguir aquí");
-
-            options([
-                { text: "Entonces… ¿dónde? 👀", value: "ig" }
-            ]);
-        }
-
-        else if (step === 5) {
-                // Intento de abrir la conversación directa en la app
-                window.location.href = `instagram://direct?user_id=${IG_USER_ID}`;
-            }
         }
 
     });
 }
 
-let isMobile = window.innerWidth <= 768;
+// Inicio controlado
+window.onload = () => {
+    next();
+};
 
 function updateDevice() {
     isMobile = window.innerWidth <= 768;
@@ -140,9 +161,7 @@ if (isMobile) {
     console.log("Modo desktop 💻");
 }
 
-
-
-// 🚀 INICIO CONTROLADO
+// Inicio controlado
 window.onload = () => {
     next();
 };
