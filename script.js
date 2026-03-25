@@ -75,11 +75,11 @@ function goToInstagram() {
 
     if (isMobile) {
         // Intento abrir conversación directa
-        window.location.href = `instagram://direct?user_id=${IG_USER_ID}`;
+        window.location.href = `https://ig.me/m/${IG_USER_ID}`;
 
         // fallback si falla
         setTimeout(() => {
-            window.location.href = `https://instagram.com/${IG_USER}`;
+            window.location.href = `https://ig.me/m/${IG_USER}`;
         }, 1500);
 
     } else {
