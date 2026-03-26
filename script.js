@@ -75,7 +75,9 @@ function goToInstagram() {
 
     if (isMobile) {
         // Intento abrir conversación directa
-       window.location.href = `https://ig.me/m/${IG_USER}`;
+          const username = "julianj.80";
+
+        window.location.href = `https://ig.me/m/${username}`;
 
     }
 }
